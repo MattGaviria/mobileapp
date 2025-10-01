@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             no_of_hours = Double.parseDouble(hoursStr);
             hourly_rate = Double.parseDouble(rateStr);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
             Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             pay = no_of_hours * hourly_rate;
         } else {
             pay = 40 * hourly_rate;
-            overtimePay = (no_of_hours - 40) * hourly_rate * 1.5; }
+            overtimePay = (no_of_hours - 40) * hourly_rate * 1.5;
+        }
 
         double totalPay = pay + overtimePay;
         double tax = totalPay * 0.18;
@@ -68,11 +70,24 @@ public class MainActivity extends AppCompatActivity {
         Payment payment = new Payment (no_of_hours, hourly_rate, pay, overtimePay, tax);
         PaymentReposiory.add(payment);
 
-
+        // show the payment
+        String payStub = String.format("Pay: $%.2f | OT: $%.2f | Total: $%.2f | Tax: $%.2f", pay, overtimePay, totalPay, tax);
+        Toast.makeText(this, payStub, Toast.LENGTH_LONG).show();
 
         }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_view_payments) {
+            startActivity(new Intent(this, DetailActivity.class));
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
 }
-
-
