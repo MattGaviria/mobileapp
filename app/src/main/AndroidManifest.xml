@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.A1_Cesar_GaviriaSepulveda">
+
+        <activity android:name=".DetailActivity"
+            android:label="Payments"
+            android:parentActivityName=".MainActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
