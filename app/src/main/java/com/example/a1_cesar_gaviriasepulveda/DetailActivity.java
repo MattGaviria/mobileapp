@@ -1,5 +1,5 @@
 package com.example.a1_cesar_gaviriasepulveda;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,9 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(DetailActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish(); // optional: closes DetailActivity so it doesn’t stay in stack
+            finish();
         });
 
 
