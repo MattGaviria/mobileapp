@@ -14,18 +14,18 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
+        //For displaying the logs
         ListView listView = findViewById(R.id.listViewPayments);
         Button btnBack = findViewById(R.id.btnBack);
+
+        //Create the array Adpater
         ArrayAdapter<Payment> adapter = new ArrayAdapter<> ( this,
                 android.R.layout.simple_list_item_1,
                 PaymentRepository.all()
         );
         listView.setAdapter(adapter);
 
+        //return button
         btnBack.setOnClickListener(v -> {
             finish();
         });
