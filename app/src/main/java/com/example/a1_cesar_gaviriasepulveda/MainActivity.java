@@ -3,8 +3,6 @@ package com.example.a1_cesar_gaviriasepulveda;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Declare variables
     private EditText etHours, etRate;
-    private Button btnCalculate;
+    private Button btnCalculate, btnViewLogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +24,16 @@ public class MainActivity extends AppCompatActivity {
         etHours = findViewById(R.id.etHours);
         etRate = findViewById(R.id.etRate);
         btnCalculate = findViewById(R.id.btnCalculate);
+        btnViewLogs = findViewById(R.id.btnViewLogs);
 
-        // Button click
+        // Button click for calculation
         btnCalculate.setOnClickListener(v -> computeAndLog());
+
+        // Button click to view logs
+        btnViewLogs.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void computeAndLog() {
@@ -55,40 +60,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Calculation
-        double pay, overtimePay = 0.0;
+        double basePay, overtimePay = 0.0;
         if (no_of_hours <= 40) {
-            pay = no_of_hours * hourly_rate;
+            basePay = no_of_hours * hourly_rate;
         } else {
-            pay = 40 * hourly_rate;
+            basePay = 40 * hourly_rate;
             overtimePay = (no_of_hours - 40) * hourly_rate * 1.5;
         }
 
-        double totalPay = pay + overtimePay;
+        double totalPay = basePay + overtimePay;
         double tax = totalPay * 0.18;
 
         // Save payment
-        Payment payment = new Payment(no_of_hours, hourly_rate, pay, overtimePay, totalPay, tax);
+        Payment payment = new Payment(no_of_hours, hourly_rate, basePay, overtimePay, totalPay, tax);
         PaymentRepository.add(payment);
 
-        // Show result
-        String payStub = String.format(
+        // ✅ Show result with String.format
+        String result = String.format(
                 "Pay: $%.2f | OT: $%.2f | Total: $%.2f | Tax: $%.2f",
-                pay, overtimePay, totalPay, tax);
-        Toast.makeText(this, payStub, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_view_payments) {
-            startActivity(new Intent(this, DetailActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item); // fixed this line
+                basePay, overtimePay, totalPay, tax
+        );
+        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 }
