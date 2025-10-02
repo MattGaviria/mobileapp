@@ -21,7 +21,7 @@ public class DetailActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 PaymentRepository.all()
         );
-        listView.SetAdapter(adapter);
+        listView.setAdapter(adapter);
 
 
     }

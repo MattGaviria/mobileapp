@@ -20,6 +20,14 @@
             android:hint="Hours Worked"
             android:inputType="numberDecimal" />
 
+        <EditText
+            android:id="@+id/etRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hourly rate"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="12dp" />
+
         <Button
             android:id="@+id/btnCalculate"
             android:layout_width="match_parent"
