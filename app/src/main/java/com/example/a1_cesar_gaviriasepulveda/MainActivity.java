@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Declare variables
+    // Declare variables and declare buttns
     private EditText etHours, etRate;
     private Button btnCalculate, btnViewLogs;
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Link UI elements to variables
+
         etHours = findViewById(R.id.etHours);
         etRate = findViewById(R.id.etRate);
         btnCalculate = findViewById(R.id.btnCalculate);
@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+    //verify inputs
     private void computeAndLog() {
         String hoursStr = etHours.getText().toString().trim();
         String rateStr = etRate.getText().toString().trim();
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Calculation
+        //Math logic for the app
         double basePay, overtimePay = 0.0;
         if (no_of_hours <= 40) {
             basePay = no_of_hours * hourly_rate;
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         Payment payment = new Payment(no_of_hours, hourly_rate, basePay, overtimePay, totalPay, tax);
         PaymentRepository.add(payment);
 
-        // ✅ Show result with String.format
+        //
         String result = String.format(
                 "Pay: $%.2f | OT: $%.2f | Total: $%.2f | Tax: $%.2f",
                 basePay, overtimePay, totalPay, tax
