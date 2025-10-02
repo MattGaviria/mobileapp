@@ -1,8 +1,10 @@
 package com.example.a1_cesar_gaviriasepulveda;
 
+//class for the payment record
 public class Payment {
     public final double hours, rate, basePay, overtimePay, totalPay, tax;
 
+    //constructor
     public Payment(double hours, double rate, double basePay,
                    double overtimePay, double totalPay, double tax) {
         this.hours = hours;
